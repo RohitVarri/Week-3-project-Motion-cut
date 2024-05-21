@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nike</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            overflow-x: hidden;
+        }
+     
+
+        header {
+            background-color: rgba(0, 123, 255, 0.8);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+      .cart-icon {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 999;
+}
+
+.cart-icon img {
+    width: 40px;
+    height: auto;
+}
+
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ #background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+      }
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 0 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li img {
+            width: 20px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            transition: background-color 0.3s, color 0.3s;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            background-color: #0056b3;
+            color: #ffeb3b;
+            border-radius: 5px;
+        }
+
+        .nike-logo {
+            width: 50px;
+            height: auto;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .product-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+       .product {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+    width: 30%;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.5); 
+    color: black;
+    z-index: 1;
+    margin: 10px;
+    padding: 20px;
+    position: relative;
+}
+
+
+        .product-image {
+            position: relative;
+            width: 100%;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s;
+        }
+
+        .product-image img:hover {
+            transform: scale(1.05);
+        }
+
+        .product-image .prev,
+        .product-image .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .product-image .prev {
+            left: 10px;
+        }
+
+        .product-image .next {
+            right: 10px;
+        }
+
+        .product-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-info h1 {
+            margin: 0 0 10px;
+            font-size: 24px;
+            font-family: 'Anton', sans-serif;
+            font-style: italic;
+        }
+
+       .product-info .description {
+    margin: 0 0 15px;
+    color: black; 
+}
+
+        }
+
+        .product-info .price {
+            margin: 0 0 20px;
+            font-size: 20px;
+            color: #ff0000;
+        }
+
+        .product-info .cta {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            margin-top: 20px;
+        }
+
+        .product-info .cta:hover {
+            background-color: #0056b3;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .sizes {
+            margin-bottom: 10px;
+        }
+
+        .size {
+            display: inline-block;
+            border: 1px solid #007bff;
+            padding: 5px 10px;
+            margin: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .size:hover, .size.selected {
+            background-color: #007bff;
+            color: white;
+        }
+
+        @media (min-width: 768px) {
+            .product-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .product {
+                flex-direction: column;
+            }
+
+            .product-image, .product-info {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+   <div id="background-video">
+        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/SUNBA-d06x8?autoplay=1&mute=1&loop=1&playlist=SUNBA-d06x8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+    <header>
+        <a href="https://www.nike.com/in/t/tatum-2-legacy-pf-basketball-shoes-WWbXXK/FJ6458-300" target="_blank">
+            <img class="nike-logo" src="https://logos-world.net/wp-content/uploads/2020/05/Nike-Logo.jpg" alt="Nike Logo">
+        </a>
+       <div class="cart-icon">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR39W80x51b02CDNVXlt_h_1xoyKlPKTizcLnm_0zGN7w&s" alt="Cart Icon">
+        <span class="cart-count">0</span>
+    </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+  
+    
+    <main>
+        <div class="product-container">
+            <section class="product">
+                <div class="product-image">
+                    <button class="prev" onclick="changeSlideLeft(-1)">&#10094;</button>
+                    <img id="productImgLeft" src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/7592c1ff-7fa3-4f97-9fcf-9b581e73ce25/jordan-spizike-low-shoes-pBZk7c.png" alt="Left Product Image">
+                    <button class="next" onclick="changeSlideLeft(1)">&#10095;</button>
+                </div>
+                <div class="product-info">
+                    <h1>Jordan Spizike Low</h1>
+                    <div class="description">
+                        <h4>Color: White</h4>
+                        <h4>Intuitive design</h4>
+                        <h4>Flexible and lightweight</h4>
+                    </div>
+                    <p class="price">Price: $89.99</p>
+                    <div class="sizes">
+                        <span class="size" onclick="selectSize(this)">40</span>
+                        <span class="size" onclick="selectSize(this)">41</span>
+                        <span class="size" onclick="selectSize(this)">42</span>
+                        <span class="size" onclick="selectSize(this)">44</span>
+                        <span class="size" onclick="selectSize(this)">45</span>
+                    </div>
+                    <button class="cta" onclick="addToCart()">Add to Cart</button>
+                </div>
+            </section>
+            
+           
+            <section class="product">
+                <div class="product-image">
+                    <button class="prev" onclick="changeSlideCenter(-1)">&#10094;</button>
+                    <img id="productImgCenter" src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/c005f0ca-249c-4fec-b60e-96f98c8b7c61/tatum-2-vortex-pf-basketball-shoes-WWbXXK.png",alt="Product Image">
+                    <button class="next" onclick="changeSlideCenter(1)">&#10095;</button>
+                </div>
+                <div class="product-info">
+                    <h1>Jayson Tatum Tatum 2</h1>
+                    <div class="description">
+                        <h4>Color: Mint Foam/Lava Glow</h4>
+                        <h4>Intuitive hinged heel design</h4>
+                        <h4>Lightweight, flexible design</h4>
+                    </div>
+                    <p class="price">Price: $99.99</p>
+                    <div class="sizes">
+                        <span class="size" onclick="selectSize(this)">40</span>
+                        <span class="size" onclick="selectSize(this)">41</span>
+                        <span class="size" onclick="selectSize(this)">42</span>
+                        <span class="size" onclick="selectSize(this)">44</span>
+                        <span class="size" onclick="selectSize(this)">45</span>
+                    </div>
+                    <button class="cta" onclick="addToCart()">Add to Cart</button>
+                </div>
+            </section>
+            
+           
+            <section class="product">
+                <div class="product-image">
+                    <button class="prev" onclick="changeSlideRight(-1)">&#10094;</button>
+                    <img id="productImgRight" src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/de9d55e5-633b-4f50-be35-d53fdd1fa895/luka-2-pf-basketball-shoes-LM9ScX.png" alt="Right Product Image">
+                    <button class="next" onclick="changeSlideRight(1)">&#10095;</button>
+                </div>
+                <div class="product-info">
+                    <h1>Luka 2 PF</h1>
+                    <div class="description">
+                        <h4>Color: Bright Mango</h4>
+                        <h4>Intuitive design</h4>
+                        <h4>Flexible and lightweight</h4>
+                    </div>
+                    <p class="price">Price: $109.99</p>
+                    <div class="sizes">
+                        <span class="size" onclick="selectSize(this)">40</span>
+                        <span class="size" onclick="selectSize(this)">41</span>
+                        <span class="size" onclick="selectSize(this)">42</span>
+                        <span class="size" onclick="selectSize(this)">44</span>
+                        <span class="size" onclick="selectSize(this)">45</span>
+                    </div>
+                    <button class="cta" onclick="addToCart()">Add to Cart</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        const imagesLeft = [
+          "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/7592c1ff-7fa3-4f97-9fcf-9b581e73ce25/jordan-spizike-low-shoes-pBZk7c.png",
+          "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/8159b731-f190-423a-a72d-4a90441af26a/jordan-spizike-low-shoes-pBZk7c.png",
+          "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/a6fc7bd6-8c9c-467f-9741-bdaa66a45f8a/jordan-spizike-low-shoes-pBZk7c.png",
+          "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/b1746a86-c764-42e3-abae-50f0dcccbb89/jordan-spizike-low-shoes-pBZk7c.png"
+           
+        ];
+
+        const imagesCenter = [
+           "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/c005f0ca-249c-4fec-b60e-96f98c8b7c61/tatum-2-vortex-pf-basketball-shoes-WWbXXK.png",
+            "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/9d58ab4d-39ac-45ce-bb2d-6b0443ddded0/tatum-2-vortex-pf-basketball-shoes-WWbXXK.png",
+            "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/316c846a-49e1-4318-b41a-62ef535380a9/tatum-2-vortex-pf-basketball-shoes-WWbXXK.png",
+            "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/fe50ebf3-fa2e-4882-808a-2ea079fc2516/tatum-2-vortex-pf-basketball-shoes-WWbXXK.png"
+        ];
+
+        const imagesRight = [
+            "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/de9d55e5-633b-4f50-be35-d53fdd1fa895/luka-2-pf-basketball-shoes-LM9ScX.png",
+          "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/88fafe12-2e27-45c1-bfce-c05f0d4496fb/luka-2-pf-basketball-shoes-LM9ScX.png",
+          "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/e854e216-7d63-448c-ae03-9cafcbc61ccf/luka-2-pf-basketball-shoes-LM9ScX.png",
+          "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/72298ce7-ac87-46d4-a27e-ca0075f46895/luka-2-pf-basketball-shoes-LM9ScX.png"
+         
+        ];
+
+        let currentImageIndexLeft = 0;
+        let currentImageIndexCenter = 0;
+        let currentImageIndexRight = 0;
+
+        function changeSlideLeft(direction) {
+            currentImageIndexLeft += direction;
+            if (currentImageIndexLeft < 0) {
+                currentImageIndexLeft = imagesLeft.length - 1;
+            } else if (currentImageIndexLeft >= imagesLeft.length) {
+                currentImageIndexLeft = 0;
+            }
+            document.getElementById('productImgLeft').src = imagesLeft[currentImageIndexLeft];
+        }
+
+        function changeSlideCenter(direction) {
+            currentImageIndexCenter += direction;
+            if (currentImageIndexCenter < 0) {
+                currentImageIndexCenter = imagesCenter.length - 1;
+            } else if (currentImageIndexCenter >= imagesCenter.length) {
+                currentImageIndexCenter = 0;
+            }
+            document.getElementById('productImgCenter').src = imagesCenter[currentImageIndexCenter];
+        }
+
+        function changeSlideRight(direction) {
+            currentImageIndexRight += direction;
+            if (currentImageIndexRight < 0) {
+                currentImageIndexRight = imagesRight.length - 1;
+            } else if (currentImageIndexRight >= imagesRight.length) {
+                currentImageIndexRight = 0;
+            }
+            document.getElementById('productImgRight').src = imagesRight[currentImageIndexRight];
+        }
+
+        function addToCart() {
+            alert("Product added to cart!");
+        }
+
+        function selectSize(element) {
+            const selectedSizes = document.querySelectorAll('.size.selected');
+            selectedSizes.forEach((size) => {
+                size.classList.remove('selected');
+            });
+            element.classList.add('selected');
+        }
+      let cartCount = 0; // Initialize cart count
+
+function addToCart() {
+    cartCount++; // Increment cart count
+    updateCartCount(); // Update cart count display
+    alert("Product added to cart!");
+}
+
+function updateCartCount() {
+    const cartCountElement = document.querySelector('.cart-count');
+    cartCountElement.textContent = cartCount; // Update cart count display
+}
+
+    </script>
+</body>
+</html>
